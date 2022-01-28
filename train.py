@@ -40,10 +40,10 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batc
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
-#device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model = EfficientNet.from_pretrained('efficientnet-b3', num_classes=15)
-model
+model = EfficientNet.from_pretrained('efficientnet-b3', num_classes=14)
+model.to(device)
 
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 criterion = nn.CrossEntropyLoss()
@@ -69,13 +69,13 @@ for epoch in range(epochs):
         running_corrects = 0
 
         for inputs, labels in dataloaders[phase]:
-            inputs = inputs
-            labels = labels
+            inputs = inputs.to(device)
+            labels = labels.to(device)
 
             optimizer.zero_grad()
 
             with torch.set_grad_enabled(phase == 'train'):
-                outputs = model(inputs)
+                outputs = model(inputs).to(device)
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
 
@@ -91,8 +91,6 @@ for epoch in range(epochs):
 
         epoch_loss = running_loss / dataset_sizes[phase]
         epoch_acc = running_corrects.double() / dataset_sizes[phase]
-        
-        
 
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(
             phase, epoch_loss, epoch_acc))

@@ -6,7 +6,7 @@ import random
 import os.path
 
 src_dir = '../labels/train/'
-target_dir = '../labels/validation/'
+target_dir = '../labels/val/'
 src_files = (os.listdir(src_dir))
 
 train_folders = os.listdir(src_dir)

@@ -75,6 +75,7 @@ if __name__ == '__main__':
     
     file_num = analysis.get_file_len_list()
     avg = analysis.get_avg_len(file_num)
+    print(file_num)
 
     if opt.draw_plot is True and opt.draw_avg_plot is True:
         analysis.draw_file_len_plot(file_num)

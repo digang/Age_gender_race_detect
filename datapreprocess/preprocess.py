@@ -22,7 +22,7 @@ class file_preprocess:
             shutil.move(self.src_folder + '/' + str(file), self.dst_folder + '/' + file.split('_')[0] + '/' + str(file))
         
         print('File move finished for {} files' .format(len(self.file_list)))
-        shutil.rmtree(self.src_folder)
+        
     
     def print_length_of_files_by_age(self):
         for file in self.file_list:
